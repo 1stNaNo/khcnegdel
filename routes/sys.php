@@ -43,11 +43,7 @@ Route::post('/interval/save', 'Sys\IntervalController@save');
 
 // // ---- BEGIN ADDRESS -------------
 
-Route::get('/address', 'Sys\AddressController@index');
-Route::post('/address/save', 'Sys\AddressController@save');
-Route::get('/address/tree', 'Sys\AddressController@tree');
-Route::get('/address/tree/node', 'Sys\AddressController@treeNode');
-Route::get('/address/list', 'Sys\AddressController@datalist');
+
 
 // ---- END INTERVAL -------------
 

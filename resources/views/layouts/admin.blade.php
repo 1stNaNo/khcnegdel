@@ -417,7 +417,7 @@
 
               @if(Auth::user()->can('address'))
                 <li class="">
-                  <a href="/sys/address">
+                  <a href="/khc/address">
                     <i class="fa fa-sitemap" aria-hidden="true"></i>
                     <span>{{trans('Хаяг')}}</span>
                   </a>
