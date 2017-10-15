@@ -186,7 +186,7 @@
                   <span>Агуулах</span>
                 </a>
               </li>
-              
+
 
               @if(Auth::user()->can('address'))
                 <li class="">
@@ -210,7 +210,45 @@
                   <span>Ажилтан</span>
                 </a>
               </li>
-              
+
+              <li class="nav-parent">
+                <a>
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>{{trans('Бараа бүтээгдхүүн')}}</span>
+                </a>
+                <ul class="nav nav-children">
+                  <li>
+                    <a href="/admin/users">
+                       {{trans('Бараа бүтээгдхүүн / Төрөл')}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/khc/unit">
+                       {{trans('Хэмжих нэгж')}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-parent">
+                <a>
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>{{trans('resource.users')}}</span>
+                </a>
+                <ul class="nav nav-children">
+                  <li>
+                    <a href="/admin/users">
+                       {{trans('resource.users')}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/admin/role">
+                       {{trans('resource.role.title')}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
             </ul>
           </nav>
 

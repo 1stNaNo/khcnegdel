@@ -11,7 +11,7 @@ use App\Utilities\Tools;
 use Datatables;
 use Validator;
 
-class AddressController extends Controller
+class ProductController extends Controller
 {
   public function __construct(){
     $this->middleware('lang');
@@ -32,7 +32,7 @@ class AddressController extends Controller
     $child = SysAddress::whereIn("parent_id", $childs)->get();
 
 
-    return view('khc.address.list')->with(compact("parent", "child"));
+    return view('sys.address.list')->with(compact("parent", "child"));
   }
 
   public function update(Request $request){
@@ -43,7 +43,7 @@ class AddressController extends Controller
       $sysAddress = SysAddress::find($request->id);
     }
 
-    return view('khc.address.update')->with(compact('sysAddress'));
+    return view('sys.address.update')->with(compact('sysAddress'));
   }
 
   public function save(Request $request){

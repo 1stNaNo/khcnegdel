@@ -22,6 +22,26 @@ Route::get('/address/list', 'Khc\AddressController@datalist');
 Route::get('/address/get/child', 'Khc\AddressController@getChild');
 
 
+/* PRODUCT */
+
+Route::get('/product', 'Khc\AddressController@index');
+Route::post('/product/update', 'Khc\AddressController@update');
+Route::post('/product/save', 'Khc\AddressController@save');
+Route::post('/product/remove', 'Khc\AddressController@remove');
+Route::get('/product/tree', 'Khc\AddressController@tree');
+Route::get('/product/tree/node', 'Khc\AddressController@treeNode');
+Route::get('/product/list', 'Khc\AddressController@datalist');
+Route::get('/product/get/child', 'Khc\AddressController@getChild');
+
+
+/* PRODUCT */
+
+Route::get('/unit', 'Khc\UnitController@index');
+Route::post('/unit/update', 'Khc\UnitController@update');
+Route::post('/unit/save', 'Khc\UnitController@save');
+Route::post('/unit/remove', 'Khc\UnitController@remove');
+Route::get('/unit/list', 'Khc\UnitController@datalist');
+
 
 /* KHC */
 

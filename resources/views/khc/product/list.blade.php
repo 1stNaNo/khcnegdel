@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div id="window_clientsList" class="page-window active-window">
+<div id="window_productList" class="page-window active-window">
   <input type="hidden" class="prev_window"/>
   <section class="panel">
   	<header class="panel-heading">
