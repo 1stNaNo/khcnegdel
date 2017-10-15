@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sys;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Sys\SysAddress;
+use App\Models\Sys\Views\Vw_address;
 use App\Utilities\Udb;
 use App\Utilities\Tools;
 use Datatables;
@@ -110,7 +111,7 @@ class AddressController extends Controller
     $condition["name"] = "LIKE";
     $condition["code"] = "LIKE";
 
-    $sysclient = Udb::find($request->params, SysAddress::class, $condition);
+    $sysclient = Udb::find($request->params, Vw_address::class, $condition);
 
     return Datatables::of($sysclient)->make(true);
   }
