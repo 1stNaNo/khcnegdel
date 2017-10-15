@@ -40,13 +40,12 @@ class EmployerController extends Controller
 
     public function edit(Request $request){
       $employer = new VwKhcEmployer;
-
       if(!empty($request->id)){
         $employer = VwKhcEmployer::find($request->id);
+        $districts = SysAddress::find($employer->district_id);
+        $cities = SysAddress::find($employer->city_id);
       }
 
-      $cities = SysAddress::where('type', 'city')->get();
-      $districts = SysAddress::where('type', 'district')->get();
       $countries = SysAddress::where('type', 'country')->get();
       $warehouses = KhcWarehouse::all();
       return view('khc.employer.employer_update')->with(compact('employer', 'cities', 'districts', 'countries', 'warehouses'));

@@ -200,7 +200,7 @@
               <li class="">
                 <a href="/khc/purchaser">
                   <i class="fa fa-money" aria-hidden="true"></i>
-                  <span>Худалдан авагч</span>
+                  <span>Байгууллага</span>
                 </a>
               </li>
 
