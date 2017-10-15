@@ -91,6 +91,16 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label class="col-md-3 control-label">{{trans('Төрөл')}}</label>
+                  <div class="col-md-6">
+                    <select name="type">
+                        <option value="0">Худалдан авагч</option>
+                        <option value="1">Нийлүүлэгч</option>
+                    </select>
+                  </div>
+                </div>
+
 
                 <div class="form-group usticky" style="background: #fff;">
                   <div class="col-md-12">

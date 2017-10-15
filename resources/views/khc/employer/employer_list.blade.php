@@ -50,9 +50,57 @@
           <div class="col-sm-4">
             <div class="mb-md">
               <div class="form-group">
+                <label class="col-md-12 control-label">{{trans('Улс')}} :</label>
+                <div class="col-md-12">
+                  <select name="country_id" class="uselect2" style="width : 100%">
+                    <option value="">Сонго</option>
+                    @foreach($countries as $c)
+                      <option value="{{$c->id}}">{{$c->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="mb-md">
+              <div class="form-group">
+                <label class="col-md-12 control-label">{{trans('Хот')}} :</label>
+                <div class="col-md-12">
+                  <select name="city_id" class="uselect2" style="width : 100%">
+                    <option value="">Сонго</option>
+                    @foreach($cities as $c)
+                      <option value="{{$c->id}}">{{$c->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="mb-md">
+              <div class="form-group">
+                <label class="col-md-12 control-label">{{trans('Сум/Дүүрэг')}} :</label>
+                <div class="col-md-12">
+                  <select name="district_id" class="uselect2" style="width : 100%">
+                    <option value="">Сонго</option>
+                    @foreach($districts as $c)
+                      <option value="{{$c->id}}">{{$c->name}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="mb-md">
+              <div class="form-group">
                 <label class="col-md-12 control-label">{{trans('Агуулах')}} :</label>
                 <div class="col-md-12">
-                  <select name="wh_id" class="uselect2">
+                  <select name="wh_id" class="uselect2" style="width : 100%">
                     <option value="">Сонго</option>
                     @foreach($warehouses as $c)
                       <option value="{{$c->wh_id}}">{{$c->name}}</option>
@@ -62,6 +110,7 @@
               </div>
             </div>
           </div>
+
         </form>   
         <div class="mb-md">
           <div class="form-group usticky" style="background: #fff;">

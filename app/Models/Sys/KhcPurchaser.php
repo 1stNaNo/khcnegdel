@@ -22,7 +22,8 @@ class KhcPurchaser extends Model
         'district_id',
         'phone',
         'description',
-        'address'
+        'address',
+        'type'
     ];
 
     protected $guarded = [];
