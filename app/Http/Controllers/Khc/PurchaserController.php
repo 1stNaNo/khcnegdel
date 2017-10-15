@@ -33,37 +33,52 @@ class PurchaserController extends Controller
     }
 
     public function edit(Request $request){
-      $purchaser = new VwKhcpurchaser;
+      $purchaser = new VwKhcPurchaser;
 
       if(!empty($request->id)){
-        $purchaser = VwKhcpurchaser::find($request->id);
+        $purchaser = VwKhcPurchaser::find($request->id);
       }
 
       $cities = SysAddress::where('type', 'city')->get();
       $districts = SysAddress::where('type', 'district')->get();
-      return view('khc.purchaser.purchaser_update')->with(compact('purchaser', 'cities', 'districts'));
+      $countries = SysAddress::where('type', 'country')->get();
+      return view('khc.purchaser.purchaser_update')->with(compact('purchaser', 'cities', 'districts', 'countries'));
     }
 
     public function save(Request $request){
-      if(!empty($request->wh_id)){
-        $purchaser = Khcpurchaser::find($request->wh_id);
-      }else{
-        $purchaser = new Khcpurchaser;  
-      }
-
-      if(!$request->has('is_centre')){
-        $purchaser->is_centre = 0;
-      }else{
-        $purchaser->is_centre = 1;
-      }
       
-      $purchaser->fill($request->all());
-      $purchaser->save();
+      $validate = [];
+      $validate['name'] = 'required';
+      $validate['phone'] = 'numeric';
 
-      return response()->json(['type' => 'success']);
+      $validator = \Validator::make($request->all(), $validate);
+
+      if($validator->fails()){
+        return response()->json($validator->messages(), 200);
+      }else{
+
+        if(!empty($request->wh_id)){
+          $purchaser = KhcPurchaser::find($request->wh_id);
+        }else{
+          $purchaser = new KhcPurchaser;  
+        }
+        
+        $purchaser->fill($request->all());
+        $purchaser->save();
+
+        return response()->json(['type' => 'success']);
+      }
     }
 
-    public function data(){
-      return Datatables::of(VwKhcpurchaser::all())->make(true);
+    public function data(Request $request){
+      return Datatables::of(VwKhcPurchaser::all())->make(true);
+    }
+
+    public function delete(Request $request){
+      if(!empty($request->id)){
+        $purchaser = KhcPurchaser::find($request->id);
+        $purchaser->delete();
+        return response()->json(['type' => 'success']);
+      }
     }
 }

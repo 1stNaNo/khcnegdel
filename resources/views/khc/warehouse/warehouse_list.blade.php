@@ -48,6 +48,7 @@
           <ucolumn name="index" source="index" utype="index" searchable="false" sortable="false"/>
           <ucolumn name="wh_id" source="wh_id" sort="true" visible="false"/>
           <ucolumn name="name" source="name" sort="true"/>
+          <ucolumn name="country_name" source="country_name" sort="true"/>
           <ucolumn name="city_name" source="city_name" sort="true"/>
           <ucolumn name="district_name" source="district_name" sort="true"/>
           <ucolumn name="phone" source="phone" sort="true"/>
@@ -61,6 +62,7 @@
               <th></th>
               <th></th>
               <th>Нэр</th>
+              <th>{{trans('Улс')}}</th>
               <th>{{trans('Аймаг/хот')}}</th>
               <th>{{trans('Сум/дүүрэг')}}</th>
               <th>{{trans('Утас')}}</th>

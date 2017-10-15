@@ -23,7 +23,8 @@ class KhcEmployer extends Model
         'phone',
         'city_id',
         'address',
-        'district_id'
+        'district_id',
+        'country_id'
     ];
 
     protected $guarded = [];

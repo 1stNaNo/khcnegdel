@@ -17,7 +17,8 @@ class SysAddress extends Model
         'parent_id',
         'name',
         'insert_date',
-        'insert_user'
+        'insert_user',
+        'code'
     ];
 
     protected $guarded = [];

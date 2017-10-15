@@ -41,26 +41,40 @@ class WarehouseController extends Controller
 
       $cities = SysAddress::where('type', 'city')->get();
       $districts = SysAddress::where('type', 'district')->get();
-      return view('khc.warehouse.warehouse_update')->with(compact('warehouse', 'cities', 'districts'));
+      $countries = SysAddress::where('type', 'country')->get();
+      return view('khc.warehouse.warehouse_update')->with(compact('warehouse', 'cities', 'districts', 'countries'));
     }
 
     public function save(Request $request){
-      if(!empty($request->wh_id)){
-        $warehouse = KhcWarehouse::find($request->wh_id);
-      }else{
-        $warehouse = new KhcWarehouse;  
-      }
 
-      if(!$request->has('is_centre')){
-        $warehouse->is_centre = 0;
-      }else{
-        $warehouse->is_centre = 1;
-      }
-      
-      $warehouse->fill($request->all());
-      $warehouse->save();
 
-      return response()->json(['type' => 'success']);
+      $validate = [];
+      $validate['name'] = 'required';
+      $validate['phone'] = 'numeric';
+
+      $validator = \Validator::make($request->all(), $validate);
+
+      if($validator->fails()){
+        return response()->json($validator->messages(), 200);
+      }else{
+
+        if(!empty($request->wh_id)){
+          $warehouse = KhcWarehouse::find($request->wh_id);
+        }else{
+          $warehouse = new KhcWarehouse;  
+        }
+
+        if(!$request->has('is_centre')){
+          $warehouse->is_centre = 0;
+        }else{
+          $warehouse->is_centre = 1;
+        }
+        
+        $warehouse->fill($request->all());
+        $warehouse->save();
+
+        return response()->json(['type' => 'success']);
+      }
     }
 
     public function data(){

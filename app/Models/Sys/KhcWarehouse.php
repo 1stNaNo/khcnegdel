@@ -18,6 +18,7 @@ class KhcWarehouse extends Model
     protected $fillable = [
         'name',
         'city_id',
+        'country_id',
         'district_id',
         'phone',
         'is_centre'

@@ -41,6 +41,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapSysRoutes();
 
+        $this->mapKhcRoutes();
+
         //
     }
 
@@ -94,6 +96,24 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'sys',
         ], function ($router) {
             require base_path('routes/sys.php');
+        });
+    }
+
+    /**
+     * Define the "khc" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapKhcRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+            'prefix' => 'khc',
+        ], function ($router) {
+            require base_path('routes/khc.php');
         });
     }
 }

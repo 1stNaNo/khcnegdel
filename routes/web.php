@@ -33,7 +33,6 @@ Route::get('/changeLang/{locale}', function ($locale) {
 
 Auth::routes();
 
-// ---- BEGIN SECTION CATEGORY -------------
 
 Route::get('/admin/category', 'Admin\CategoryController@index');
 Route::post('/admin/category/index', 'Admin\CategoryController@indexA');
@@ -257,18 +256,3 @@ Route::get('/complaints', function(){
 Route::post('/svcomplaints', 'Web\ComplaintsController@save')->middleware('lang');
 
 Route::post('/pollInfo', 'Web\ComplaintsController@pollInfo');
-
-
-/* KHC */
-
-Route::get('/khc/warehouse', 'Khc\WarehouseController@index');
-Route::post('/khc/warehouse/edit', 'Khc\WarehouseController@edit');
-Route::post('/khc/warehouse/save', 'Khc\WarehouseController@save');
-Route::post('/khc/warehouse/delete', 'Khc\WarehouseController@delete');
-Route::get('/khc/warehouse/data', 'Khc\WarehouseController@data');
-
-Route::get('/khc/purchaser', 'Khc\PurchaserController@index');
-Route::post('/khc/purchaser/edit', 'Khc\PurchaserController@edit');
-Route::post('/khc/purchaser/save', 'Khc\PurchaserController@save')
-Route::post('/khc/purchaser/delete', 'Khc\PurchaserController@delete');;
-Route::get('/khc/purchaser/data', 'Khc\PurchaserController@data');

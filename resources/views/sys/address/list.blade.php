@@ -10,7 +10,7 @@
   			<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
   		</div>
 
-  		<h2 class="panel-title">{{ trans('resource.sys.company') }}</h2>
+  		<h2 class="panel-title">{{ trans('Хаяг') }}</h2>
   	</header>
   	<div class="panel-body">
   		<div class="row">
@@ -21,9 +21,9 @@
         </div>
         <div class="col-md-9">
           <div class="row gridFilterWrapper">
+            <form id="addressSearch_Form">
             <div class="col-sm-4">
               <div class="mb-md">
-                <form id="addressSearch_Form">
                   <input name="parent_id" type="hidden">
                   <div class="form-group">
                     <label class="col-md-12 control-label">{{trans('resource.name')}} :</label>
@@ -31,9 +31,20 @@
                       <input type="text" class="form-control" name="name"/>
                     </div>
                   </div>
-                </form>
               </div>
             </div>
+            <div class="col-sm-4">
+              <div class="mb-md">
+                  <input name="parent_id" type="hidden">
+                  <div class="form-group">
+                    <label class="col-md-12 control-label">{{trans('Код')}} :</label>
+                    <div class="col-md-12">
+                      <input type="text" class="form-control" name="code"/>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            </form>
             <div class="mb-md">
               <div class="form-group usticky" style="background: #fff;">
                 <div class="col-md-12" style="text-align: center;">
@@ -56,16 +67,18 @@
               <ucolumn name="index" source="index" utype="index" searchable="false" sortable="false"/>
               <ucolumn name="id" source="id" visible="false"/>
               <ucolumn name="name" source="name" sort="true"/>
+              <ucolumn name="code" source="code"/>
               <ucolumn name="parent_id" source="parent_id"/>
-              <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="sysclients.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
-              <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="sysclients.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
+              <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="sys.address.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
+              <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="sys.address.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
             </div>
-            <table action="/sys/address/list" id="address_grid" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-condensed" width="100%">
+            <table action="/khc/address/list" id="address_grid" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-condensed" width="100%">
               <thead>
                 <tr>
                   <th></th>
                   <th>{{trans('resource.weblinks.id')}}</th>
                   <th>{{trans('resource.name')}}</th>
+                  <th>{{trans('Код')}}</th>
                   <th>{{trans('Хамаарал')}}</th>
                   <th></th>
                   <th></th>
@@ -94,13 +107,14 @@
         'data' : {
             'url' : function (node) {
               return node.id === '#' ?
-                '/sys/address/tree' :
-                '/sys/address/tree/node';
+                '/khc/address/tree' :
+                '/khc/address/tree/node';
             },
             'data' : function (node) {
               return { 'id' : node.id };
             }
-          }
+        },
+        check_callback : true
   		},
   		'types' : {
   			'default' : {
@@ -136,7 +150,8 @@
   sys.address = {
       add: function(){
         var postData = {};
-        uPage.call('/sys/clients/edit',postData);
+        postData["parent_id"] = $("#addressSearch_Form input[name='parent_id']").val();
+        uPage.call('/khc/address/update',postData);
       },
 
       edit: function(gridId ,elmnt){
@@ -146,21 +161,26 @@
           var postData = {};
           postData['id'] = rowData.id;
 
-          uPage.call('/sys/clients/edit',postData);
+          uPage.call('/khc/address/update',postData);
       },
 
       save: function(){
 
           $.ajax({
-              url: '/sys/clients/save',
+              url: '/khc/address/save',
               type: "POST",
               dataType: "json",
-              data : $("#clientsRegister_form").serializeObject(),
+              data : $("#addressRegister_Form").serializeObject(),
               success: function(data){
                   if(data.type == 'success'){
                     umsg.success(messages.saved);
-                    uPage.close('window_clientsRegister');
-                    baseGridFunc.reload("clients_grid");
+                    uPage.close('window_addressRegister');
+                    baseGridFunc.reload("address_grid");
+                    $('#addressTree').jstree().create_node(data.data.parent_id, {
+                      "id": data.data.id,
+                      "text": data.data.name,
+                      "type": data.data.type,
+                    },"last", function(){});
                   }else{
                     uvalidate.setErrors(data);
                   }
@@ -175,14 +195,18 @@
         var postData = {};
         postData['id'] = rowData.id;
         $.ajax({
-            url: '/sys/clients/remove',
+            url: '/khc/address/remove',
             type: "POST",
             dataType: "json",
             data : postData,
             success: function(data){
                 if(data.type == 'success'){
                   umsg.success(messages.removed);
-                  baseGridFunc.reload("clients_grid");
+                  baseGridFunc.reload("address_grid");
+                  $('#addressTree').jstree().delete_node([{
+                      "id": data.data.id
+                    }
+                  ]);
                 }
             }
         });

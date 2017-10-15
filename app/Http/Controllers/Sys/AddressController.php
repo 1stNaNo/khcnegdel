@@ -31,31 +31,41 @@ class AddressController extends Controller
     $child = SysAddress::whereIn("parent_id", $childs)->get();
 
 
-    return view('sys.address')->with(compact("parent", "child"));
+    return view('sys.address.list')->with(compact("parent", "child"));
   }
 
-  public function edit(Request $request){
-    $sysClient = new SysClient;
+  public function update(Request $request){
+
+    $sysAddress = new SysAddress;
+    $sysAddress->parent_id = $request->parent_id;
     if(!empty($request->id)){
-      $sysClient = SysClient::find($request->id);
+      $sysAddress = SysAddress::find($request->id);
     }
 
-    return view('sys.clients')->with(compact('sysClient'));
+    return view('sys.address.update')->with(compact('sysAddress'));
   }
 
   public function save(Request $request){
 
     $validate = [];
     $validate['name'] = 'required';
+    $validate['code'] = 'required';
+    $validate['type'] = 'required';
     $validator = \Validator::make($request->all(), $validate);
 
     if($validator->fails()){
       return response()->json($validator->messages(), 200);
     }else{
 
-      Udb::save($request->all(), SysClient::class, []);
+      $data = $request->all();
 
-      return response()->json(['type' => 'success']);
+      if(!$request->has('parent_id')){
+        $data["parent_id"] = 0;
+      }
+
+      $data = Udb::save($data, SysAddress::class, []);
+
+      return response()->json(['type' => 'success', 'data'=> $data]);
     }
 
   }
@@ -63,11 +73,11 @@ class AddressController extends Controller
   public function remove(Request $request){
 
       if(!empty($request->id)){
-        $sysClient = SysClient::find($request->id);
-        $sysClient->delete();
+        $sysAddress = SysAddress::find($request->id);
+        $sysAddress->delete();
       }
 
-      return response()->json(['type' => 'success']);
+      return response()->json(['type' => 'success', 'data'=>$sysAddress]);
 
   }
 
@@ -98,6 +108,7 @@ class AddressController extends Controller
 
     $condition = [];
     $condition["name"] = "LIKE";
+    $condition["code"] = "LIKE";
 
     $sysclient = Udb::find($request->params, SysAddress::class, $condition);
 

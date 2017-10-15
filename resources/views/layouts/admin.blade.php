@@ -179,19 +179,36 @@
           <nav id="menu" class="nav-main" role="navigation">
             <ul class="nav nav-main">
 
+
               <li class="">
                 <a href="/khc/warehouse">
                   <i class="fa fa-home" aria-hidden="true"></i>
                   <span>Агуулах</span>
                 </a>
-                </ul>
               </li>
+              
+
+              @if(Auth::user()->can('address'))
+                <li class="">
+                  <a href="/khc/address">
+                    <i class="fa fa-sitemap" aria-hidden="true"></i>
+                    <span>{{trans('Хаяг')}}</span>
+                  </a>
+                </li>
+              @endif
+
               <li class="">
                 <a href="/khc/purchaser">
                   <i class="fa fa-money" aria-hidden="true"></i>
                   <span>Худалдан авагч</span>
                 </a>
-                </ul>
+              </li>
+
+              <li class="">
+                <a href="/khc/employer">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>Ажилтан</span>
+                </a>
               </li>
               
             </ul>
