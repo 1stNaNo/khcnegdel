@@ -68,7 +68,7 @@
               <ucolumn name="id" source="id" visible="false"/>
               <ucolumn name="name" source="name" sort="true"/>
               <ucolumn name="code" source="code"/>
-              <ucolumn name="parent_id" source="parent_id"/>
+              <ucolumn name="parent_name" source="parent_name"/>
               <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="sys.address.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
               <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="sys.address.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
             </div>
@@ -176,7 +176,13 @@
                     umsg.success(messages.saved);
                     uPage.close('window_addressRegister');
                     baseGridFunc.reload("address_grid");
-                    $('#addressTree').jstree().create_node(data.data.parent_id, {
+                    var parent_id = "#"
+
+                    if(data.data.parent_id != 0){
+                      parent_id = data.data.parent_id;
+                    }
+
+                    $('#addressTree').jstree().create_node(parent_id, {
                       "id": data.data.id,
                       "text": data.data.name,
                       "type": data.data.type,
@@ -189,26 +195,27 @@
       },
 
       remove: function(gridId ,elmnt){
+        uModal.remove(function(){
+          var rowData = baseGridFunc.getRowData(gridId ,elmnt);
 
-        var rowData = baseGridFunc.getRowData(gridId ,elmnt);
-
-        var postData = {};
-        postData['id'] = rowData.id;
-        $.ajax({
-            url: '/khc/address/remove',
-            type: "POST",
-            dataType: "json",
-            data : postData,
-            success: function(data){
-                if(data.type == 'success'){
-                  umsg.success(messages.removed);
-                  baseGridFunc.reload("address_grid");
-                  $('#addressTree').jstree().delete_node([{
-                      "id": data.data.id
-                    }
-                  ]);
-                }
-            }
+          var postData = {};
+          postData['id'] = rowData.id;
+          $.ajax({
+              url: '/khc/address/remove',
+              type: "POST",
+              dataType: "json",
+              data : postData,
+              success: function(data){
+                  if(data.type == 'success'){
+                    umsg.success(messages.removed);
+                    baseGridFunc.reload("address_grid");
+                    $('#addressTree').jstree().delete_node([{
+                        "id": data.data.id
+                      }
+                    ]);
+                  }
+              }
+          });
         });
       },
 
@@ -217,17 +224,46 @@
             'new' : {
                 'label' : system.new,
                 'icon': 'fa fa-plus',
-                'action' : function () { console.log(node); }
+                'action' : function () {
+                  var postData = {};
+                  postData["parent_id"] = node.id;
+                  uPage.call('/khc/address/update',postData);
+                 }
             },
             'edit' : {
-                'label' : system.edit,
-                'icon': 'fa fa-pencil',
-                'action' : function () { alert(2); }
+              'label' : system.edit,
+              'icon': 'fa fa-pencil',
+              'action' : function () {
+                var postData = {};
+                postData["id"] = node.id;
+                uPage.call('/khc/address/update',postData);
+               }
             },
             'delete' : {
-                'label' : system.delete,
-                'icon': 'fa fa-close',
-                'action' : function () { alert(2); }
+              'label' : system.delete,
+              'icon': 'fa fa-close',
+              'action' : function(){
+                uModal.remove(function(){
+                  var postData = {};
+                  postData['id'] = node.id;
+                  $.ajax({
+                      url: '/khc/address/remove',
+                      type: "POST",
+                      dataType: "json",
+                      data : postData,
+                      success: function(data){
+                          if(data.type == 'success'){
+                            umsg.success(messages.removed);
+                            baseGridFunc.reload("address_grid");
+                            $('#addressTree').jstree().delete_node([{
+                                "id": data.data.id
+                              }
+                            ]);
+                          }
+                      }
+                  });
+                });
+              }
             }
 
         }

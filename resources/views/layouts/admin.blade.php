@@ -672,7 +672,7 @@
     </div>
   </aside>
 </section>
-
+@include('layouts.main.modal')
 <!-- Vendor -->
 
 		<script src="/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>

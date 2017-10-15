@@ -51,8 +51,26 @@ var uPage = {
 	    $(this).css('style', 'width: auto !important');
 	  });
 
-	}
+	},
 };
+
+var uModal = {
+  remove: function(callback){
+
+    $.magnificPopup.open({
+      items: {
+        src: '#removeModal'
+      },
+      type: 'inline'
+    });
+    $("#removeModal button.modal-confirm").off("click").click(function() {
+      if(callback != undefined){
+        callback();
+      }
+      $.magnificPopup.close();
+    });
+  }
+}
 
 var uForm = {
 	register: function(form_id, callback){
