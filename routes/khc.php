@@ -12,13 +12,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/address', 'Sys\AddressController@index');
-Route::post('/address/update', 'Sys\AddressController@update');
-Route::post('/address/save', 'Sys\AddressController@save');
-Route::post('/address/remove', 'Sys\AddressController@remove');
-Route::get('/address/tree', 'Sys\AddressController@tree');
-Route::get('/address/tree/node', 'Sys\AddressController@treeNode');
-Route::get('/address/list', 'Sys\AddressController@datalist');
+Route::get('/address', 'Khc\AddressController@index');
+Route::post('/address/update', 'Khc\AddressController@update');
+Route::post('/address/save', 'Khc\AddressController@save');
+Route::post('/address/remove', 'Khc\AddressController@remove');
+Route::get('/address/tree', 'Khc\AddressController@tree');
+Route::get('/address/tree/node', 'Khc\AddressController@treeNode');
+Route::get('/address/list', 'Khc\AddressController@datalist');
+Route::get('/address/get/child', 'Khc\AddressController@getChild');
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Sys;
+namespace App\Http\Controllers\Khc;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -103,6 +103,17 @@ class AddressController extends Controller
       $child = SysAddress::where("parent_id", $request->id)->get();
 
       return Tools::treeNode($child, false);
+  }
+
+  public function getChild(Request $request){
+
+    $sysAddress = new SysAddress;
+
+    if(!empty($request->id)){
+      $sysAddress = SysAddress::where("parent_id",$request->id)->get();
+    }
+
+    return $sysAddress;
   }
 
   public function datalist(Request $request){
