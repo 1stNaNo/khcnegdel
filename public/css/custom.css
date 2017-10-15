@@ -1,0 +1,116 @@
+/* Add here all your CSS customizations */
+.mainHeader{
+  background: url(../img/header.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.logoText{
+  float: left;
+  margin-top: 25px;
+}
+.logoText p{
+  color: #fff;
+}
+
+.newsCont{
+  height: 160px;
+  overflow: hidden;
+  margin: 5px 0;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  border-top: solid 1px #c67400;
+}
+.newsCont img{
+  transform: translate(-25%, -50%);
+  -webkit-transform: translate(-25%, -50%);
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  cursor: pointer;
+}
+
+.newsCont .newsCap{
+  position: absolute;
+  height: 70px;
+  width: 100%;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  cursor: pointer;
+}
+.newsCont .newsCap p{
+  color: #fff;
+  text-align: left;
+  padding-left: 50px;
+  padding: 0 0 0 50px;
+  margin: 0;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 18px;
+  height: 36px;
+  margin: 6px 0 0;
+}
+
+.newsCont .newsCap p.additional{
+  margin: 6px 0 0;
+  color: #00a8ff;
+}
+
+.newsCont .newsCap p.additional i{
+  margin: 0 0 0 10px;
+}
+
+.newsCont:hover > img{
+  -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+}
+
+.newsCont:hover > .newsCap{
+  background: rgba(255,255,255,0.6);
+}
+
+.newsCont:hover > .newsCap p{
+  color: #353535;
+}
+
+.newsCont:hover > .newsCap p.additional{
+  color: #ff6c00;
+}
+
+.contactMap{
+  width: 60%;
+  float: left;
+  margin-right: 40px;
+}
+
+.contactText{
+  width: 30%;
+  float: left;
+}
+
+.pollCont{
+  float: right;
+  width: 330px;
+}
+
+@media (max-width: 992px) {
+
+  .pollCont{
+    float: left;
+  }
+
+  .contactMap{
+    width: 100%;
+    float: left;
+  }
+
+  .contactText{
+    width: 100%;
+    float: left;
+  }
+}
+
+.nano { width: 100%;}
+.nano .nano-pane   { background: #888; }
+.nano .nano-slider { background: #111; }

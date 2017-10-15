@@ -1,0 +1,9 @@
+/* Add here all your CSS customizations */
+.fRight{
+  float: right;
+  margin-left: 3px;
+}
+
+.gridFilterWrapper{
+  display: none;
+}

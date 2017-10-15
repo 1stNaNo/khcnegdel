@@ -1,0 +1,23 @@
+{
+	"sEmptyTable":     "Мэдээлэл байхгүй",
+	"sInfo":           "_START_ - _END_ : Бүгд _TOTAL_",
+	"sInfoEmpty":      "0 - 0 : Бүгд 0",
+	"sInfoFiltered":   "(_MAX_ - c хайлт хийгдсэн)",
+	"sInfoPostFix":    "",
+	"sInfoThousands":  ",",
+	"sLengthMenu":     "_MENU_",
+	"sLoadingRecords": "Ачааллаж байна...",
+	"sProcessing":     "Боловсруулж байна...",
+	"sSearch":         "Хайлт:",
+	"sZeroRecords":    "Өгөгдөл олдсонгүй",
+	"oPaginate": {
+		"sFirst":    "Эхнийх",
+		"sLast":     "Сүүлийх",
+		"sNext":     "Дараагийх",
+		"sPrevious": "Өмнөх"
+	},
+	"oAria": {
+		"sSortAscending":  ": Өсөхөөр эрэмблэх",
+		"sSortDescending": ": Буурхаар эрэмблэх"
+	}
+}
