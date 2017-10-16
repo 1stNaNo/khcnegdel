@@ -191,22 +191,23 @@
       },
 
       remove: function(gridId ,elmnt){
+        uModal.remove(function(){
+          var rowData = baseGridFunc.getRowData(gridId ,elmnt);
 
-        var rowData = baseGridFunc.getRowData(gridId ,elmnt);
-
-        var postData = {};
-        postData['id'] = rowData.purchaser_id;
-        $.ajax({
-            url: '/khc/purchaser/delete',
-            type: "POST",
-            dataType: "json",
-            data : postData,
-            success: function(data){
-                if(data.type == 'success'){
-                  umsg.success(messages.removed);
-                  baseGridFunc.reload("purchaser_grid");
-                }
-            }
+          var postData = {};
+          postData['id'] = rowData.purchaser_id;
+          $.ajax({
+              url: '/khc/purchaser/delete',
+              type: "POST",
+              dataType: "json",
+              data : postData,
+              success: function(data){
+                  if(data.type == 'success'){
+                    umsg.success(messages.removed);
+                    baseGridFunc.reload("purchaser_grid");
+                  }
+              }
+          });
         });
       },
       isCentre : function(data, type, row){

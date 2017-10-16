@@ -202,22 +202,23 @@
       },
 
       remove: function(gridId ,elmnt){
+        uModal.remove(function(){
+          var rowData = baseGridFunc.getRowData(gridId ,elmnt);
 
-        var rowData = baseGridFunc.getRowData(gridId ,elmnt);
-
-        var postData = {};
-        postData['emp_id'] = rowData.emp_id;
-        $.ajax({
-            url: '/khc/employer/delete',
-            type: "POST",
-            dataType: "json",
-            data : postData,
-            success: function(data){
-                if(data.type == 'success'){
-                  umsg.success(messages.removed);
-                  baseGridFunc.reload("employer_grid");
-                }
-            }
+          var postData = {};
+          postData['emp_id'] = rowData.emp_id;
+          $.ajax({
+              url: '/khc/employer/delete',
+              type: "POST",
+              dataType: "json",
+              data : postData,
+              success: function(data){
+                  if(data.type == 'success'){
+                    umsg.success(messages.removed);
+                    baseGridFunc.reload("employer_grid");
+                  }
+              }
+          });
         });
       },
       isCentre : function(data, type, row){
