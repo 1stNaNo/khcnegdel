@@ -9,6 +9,7 @@ use App\Models\Sys\Views\VwKhcWarehouse;
 use App\Models\Sys\SysAddress;
 use App\Models\Sys\KhcWarehouse;
 use Datatables;
+use App\Utilities\Udb;
 
 class WarehouseController extends Controller
 {
@@ -29,7 +30,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-      return view('khc.warehouse.warehouse_list');
+      $countries = SysAddress::where('type', 'country')->get();
+      return view('khc.warehouse.warehouse_list')->with(compact('countries'));
     }
 
     public function edit(Request $request){
@@ -37,10 +39,10 @@ class WarehouseController extends Controller
 
       if(!empty($request->id)){
         $warehouse = VwKhcWarehouse::find($request->id);
+        $districts = SysAddress::find($warehouse->district_id);
+        $cities = SysAddress::find($warehouse->city_id);
       }
 
-      $cities = SysAddress::where('type', 'city')->get();
-      $districts = SysAddress::where('type', 'district')->get();
       $countries = SysAddress::where('type', 'country')->get();
       return view('khc.warehouse.warehouse_update')->with(compact('warehouse', 'cities', 'districts', 'countries'));
     }
@@ -50,6 +52,9 @@ class WarehouseController extends Controller
 
       $validate = [];
       $validate['name'] = 'required';
+      $validate['country_id'] = 'required';
+      $validate['city_id'] = 'required';
+      $validate['district_id'] = 'required';
       $validate['phone'] = 'numeric';
 
       $validator = \Validator::make($request->all(), $validate);
@@ -77,8 +82,11 @@ class WarehouseController extends Controller
       }
     }
 
-    public function data(){
-      return Datatables::of(VwKhcWarehouse::all())->make(true);
+    public function data(Request $request){
+      $c = [];
+      $c['name'] = "LIKE";
+      $c['phone'] = "LIKE";
+      return Datatables::of(Udb::find($request->params, VwKhcWarehouse::class, $c))->make(true);
     }
 
     public function delete(Request $request){

@@ -23,7 +23,8 @@ class KhcPurchaser extends Model
         'phone',
         'description',
         'address',
-        'type'
+        'type',
+        'code'
     ];
 
     protected $guarded = [];

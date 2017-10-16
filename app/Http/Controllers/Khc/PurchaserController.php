@@ -9,6 +9,7 @@ use App\Models\Sys\Views\VwKhcPurchaser;
 use App\Models\Sys\SysAddress;
 use App\Models\Sys\KhcPurchaser;
 use Datatables;
+use App\Utilities\Udb;
 
 class PurchaserController extends Controller
 {
@@ -29,7 +30,8 @@ class PurchaserController extends Controller
      */
     public function index()
     {
-      return view('khc.purchaser.purchaser_list');
+      $countries = SysAddress::where('type', 'country')->get();
+      return view('khc.purchaser.purchaser_list')->with(compact('countries'));
     }
 
     public function edit(Request $request){
@@ -37,10 +39,10 @@ class PurchaserController extends Controller
 
       if(!empty($request->id)){
         $purchaser = VwKhcPurchaser::find($request->id);
+        $districts = SysAddress::find($purchaser->district_id);
+        $cities = SysAddress::find($purchaser->city_id);
       }
 
-      $cities = SysAddress::where('type', 'city')->get();
-      $districts = SysAddress::where('type', 'district')->get();
       $countries = SysAddress::where('type', 'country')->get();
       return view('khc.purchaser.purchaser_update')->with(compact('purchaser', 'cities', 'districts', 'countries'));
     }
@@ -49,6 +51,9 @@ class PurchaserController extends Controller
       
       $validate = [];
       $validate['name'] = 'required';
+      $validate['country_id'] = 'required';
+      $validate['city_id'] = 'required';
+      $validate['district_id'] = 'required';
       $validate['phone'] = 'numeric';
 
       $validator = \Validator::make($request->all(), $validate);
@@ -71,7 +76,10 @@ class PurchaserController extends Controller
     }
 
     public function data(Request $request){
-      return Datatables::of(VwKhcPurchaser::all())->make(true);
+      $c = [];
+      $c['name'] = "LIKE";
+      $c['phone'] = "LIKE";
+      return Datatables::of(Udb::find($request->params, VwKhcPurchaser::class, $c))->make(true);
     }
 
     public function delete(Request $request){
