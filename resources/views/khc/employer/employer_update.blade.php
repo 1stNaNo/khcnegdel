@@ -50,7 +50,8 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('Улс')}}</label>
                   <div class="col-md-6">
-                    <select name="country_id" class="uselect2">
+                    <select name="country_id" onchange="changeSelectValue('window_employerRegister',$('[name=city_id]'), $(this).val());">
+                      <option selected="selected" value="">Сонго</option>
                       @foreach($countries as $c)
                         @if($employer->country_id == $c->id)
                           <option selected="selected" value="{{$c->id}}">{{$c->name}}</option>
@@ -65,7 +66,7 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('Хот')}}</label>
                   <div class="col-md-6">
-                    <select name="city_id" class="uselect2">
+                    <select name="city_id" onchange="changeSelectValue('window_employerRegister',$('[name=district_id]'), $(this).val())">
                       @if(empty($cities))
                         <option selected="selected" value="">Сонго</option>
                       @else
@@ -78,7 +79,7 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('Дүүрэг')}}</label>
                   <div class="col-md-6">
-                    <select name="district_id" class="uselect2">
+                    <select name="district_id">
                       @if(empty($districts))
                         <option selected="selected" value="">Сонго</option>
                       @else
@@ -116,16 +117,6 @@
       </div>
   </div>
   <script type="text/javascript">
-      $(document).ready(function(){
 
-        $(".uselect2").select2();
-
-      });
-
-      $('[name="country_id"]').on('change', function(){
-        $.get('/address/get/child', {'id': $(this).val()}, function(data){
-          console.log(data);
-        });
-      });
   </script>
 </div>

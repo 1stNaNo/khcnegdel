@@ -493,6 +493,20 @@ var onClickRow = {
   }
 };
 
+function changeSelectValue(window_id, $input, id){
+  var str = "";
+  $input = $('#'+window_id).find($input);
+  $.get('/khc/address/get/child', {'id': id}, function(data){
+    $input.html($('<option value="">Сонго</option>'));
+    $.each(data, function(i, v){
+      var $option = $('<option />').prop('value', v.id).text(v.name);
+      $input.append($option);
+    });
+  });
+  $input.select2("val", "");
+  $input.trigger('change');
+}
+
 (function() {
     PNotify.prototype.options.delay = 1500;
 }());

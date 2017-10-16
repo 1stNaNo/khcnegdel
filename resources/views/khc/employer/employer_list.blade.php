@@ -52,7 +52,7 @@
               <div class="form-group">
                 <label class="col-md-12 control-label">{{trans('Улс')}} :</label>
                 <div class="col-md-12">
-                  <select name="country_id" class="uselect2" style="width : 100%">
+                  <select name="country_id" class="uselect2" style="width : 100%" onchange="changeSelectValue('window_employerList', $('[name=city_id]'), $(this).val());">
                     <option value="">Сонго</option>
                     @foreach($countries as $c)
                       <option value="{{$c->id}}">{{$c->name}}</option>
@@ -68,11 +68,8 @@
               <div class="form-group">
                 <label class="col-md-12 control-label">{{trans('Хот')}} :</label>
                 <div class="col-md-12">
-                  <select name="city_id" class="uselect2" style="width : 100%">
+                  <select name="city_id" class="uselect2" style="width : 100%" onchange="changeSelectValue('window_employerList', $('[name=district_id]'), $(this).val());">
                     <option value="">Сонго</option>
-                    @foreach($cities as $c)
-                      <option value="{{$c->id}}">{{$c->name}}</option>
-                    @endforeach
                   </select>
                 </div>
               </div>
@@ -86,9 +83,6 @@
                 <div class="col-md-12">
                   <select name="district_id" class="uselect2" style="width : 100%">
                     <option value="">Сонго</option>
-                    @foreach($districts as $c)
-                      <option value="{{$c->id}}">{{$c->name}}</option>
-                    @endforeach
                   </select>
                 </div>
               </div>
@@ -208,22 +202,23 @@
       },
 
       remove: function(gridId ,elmnt){
+        uModal.remove(function(){
+          var rowData = baseGridFunc.getRowData(gridId ,elmnt);
 
-        var rowData = baseGridFunc.getRowData(gridId ,elmnt);
-
-        var postData = {};
-        postData['emp_id'] = rowData.emp_id;
-        $.ajax({
-            url: '/khc/employer/delete',
-            type: "POST",
-            dataType: "json",
-            data : postData,
-            success: function(data){
-                if(data.type == 'success'){
-                  umsg.success(messages.removed);
-                  baseGridFunc.reload("employer_grid");
-                }
-            }
+          var postData = {};
+          postData['emp_id'] = rowData.emp_id;
+          $.ajax({
+              url: '/khc/employer/delete',
+              type: "POST",
+              dataType: "json",
+              data : postData,
+              success: function(data){
+                  if(data.type == 'success'){
+                    umsg.success(messages.removed);
+                    baseGridFunc.reload("employer_grid");
+                  }
+              }
+          });
         });
       },
       isCentre : function(data, type, row){

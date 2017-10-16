@@ -34,7 +34,8 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('Улс')}}</label>
                   <div class="col-md-6">
-                    <select name="country_id">
+                    <select name="country_id" onchange="changeSelectValue('window_purchaserRegister',$('[name=city_id]'), $(this).val());">
+                      <option selected="selected" value="">Сонго</option>
                       @foreach($countries as $c)
                         @if($purchaser->country_id == $c->id)
                           <option selected="selected" value="{{$c->id}}">{{$c->name}}</option>
@@ -49,14 +50,12 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('Хот')}}</label>
                   <div class="col-md-6">
-                    <select name="city_id">
-                      @foreach($cities as $c)
-                        @if($purchaser->city_id == $c->id)
-                          <option selected="selected" value="{{$c->id}}">{{$c->name}}</option>
-                        @else
-                          <option value="{{$c->id}}">{{$c->name}}</option>
-                        @endif
-                      @endforeach
+                    <select name="city_id" onchange="changeSelectValue('window_purchaserRegister',$('[name=district_id]'), $(this).val())">
+                      @if(empty($cities))
+                        <option selected="selected" value="">Сонго</option>
+                      @else
+                        <option selected="selected" value="{{$cities->id}}">{{$cities->name}}</option>
+                      @endif
                     </select>
                   </div>
                 </div>
@@ -65,13 +64,11 @@
                   <label class="col-md-3 control-label">{{trans('Дүүрэг')}}</label>
                   <div class="col-md-6">
                     <select name="district_id">
-                      @foreach($districts as $c)
-                        @if($purchaser->district_id == $c->id)
-                          <option selected="selected" value="{{$c->id}}">{{$c->name}}</option>
-                        @else
-                          <option value="{{$c->id}}">{{$c->name}}</option>
-                        @endif
-                      @endforeach
+                      @if(empty($districts))
+                        <option selected="selected" value="">Сонго</option>
+                      @else
+                        <option selected="selected" value="{{$districts->id}}">{{$districts->name}}</option>
+                      @endif
                     </select>
                   </div>
                 </div>
@@ -81,6 +78,13 @@
                   <label class="col-md-3 control-label">Хаяг</label>
                   <div class="col-md-6">
                     <input type="text" class="form-control" name="address" class="" value="{{$purchaser->address}}"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label">Код</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="code" class="" value="{{$purchaser->code}}"/>
                   </div>
                 </div>
 
@@ -116,10 +120,5 @@
       </div>
   </div>
   <script type="text/javascript">
-      $(document).ready(function(){
-
-        $(".uselect2").select2();
-
-      });
   </script>
 </div>

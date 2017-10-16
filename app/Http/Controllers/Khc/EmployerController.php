@@ -56,6 +56,9 @@ class EmployerController extends Controller
       $validate = [];
       $validate['firstname'] = 'required';
       $validate['lastname'] = 'required';
+      $validate['country_id'] = 'required';
+      $validate['city_id'] = 'required';
+      $validate['district_id'] = 'required';
       $validate['phone'] = 'numeric';
 
       $validator = \Validator::make($request->all(), $validate);
