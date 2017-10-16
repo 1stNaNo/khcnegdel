@@ -11,15 +11,15 @@ class KhcProduct extends Model
 {
     protected $table = 'khc_product';
 
-    protected $primaryKey = 'product_id';
-
-	public $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
-        'measure_id',
+        'parent_id',
+        'name',
         'type',
         'code',
-        'f_code'
+        'bar_code',
+        'suplier'
     ];
 
     protected $guarded = [];

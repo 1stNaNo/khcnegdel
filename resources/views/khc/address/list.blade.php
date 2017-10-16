@@ -176,6 +176,12 @@
                     umsg.success(messages.saved);
                     uPage.close('window_addressRegister');
                     baseGridFunc.reload("address_grid");
+
+                    $('#addressTree').jstree().delete_node([{
+                        "id": data.data.id
+                      }
+                    ]);
+
                     var parent_id = "#"
 
                     if(data.data.parent_id != 0){
@@ -186,6 +192,7 @@
                       "id": data.data.id,
                       "text": data.data.name,
                       "type": data.data.type,
+                      "children": true,
                     },"last", function(){});
                   }else{
                     uvalidate.setErrors(data);

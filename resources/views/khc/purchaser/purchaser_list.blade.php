@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-        </form>   
+        </form>
         <div class="mb-md">
           <div class="form-group usticky" style="background: #fff;">
             <div class="col-md-12" style="text-align: center;">
@@ -45,9 +45,9 @@
       </div>
       <div class="grid-body">
         <div style="display: none;" class="ucolumn-cont" data-table="purchaser_grid">
-          <ucolumn name="index" source="index" utype="index" searchable="false" sortable="false"/>
+          <ucolumn width="10px" name="index" source="index" utype="index" searchable="false" sortable="false"/>
           <ucolumn name="purchaser_id" source="purchaser_id" sort="true" visible="false"/>
-          <ucolumn name="name" source="name" sort="true"/>
+          <ucolumn width="20%" name="name" source="name" sort="true"/>
           <ucolumn name="type_name" source="type_name" sort="true"/>
           <ucolumn name="country_name" source="country_name" sort="true"/>
           <ucolumn name="city_name" source="city_name" sort="true"/>

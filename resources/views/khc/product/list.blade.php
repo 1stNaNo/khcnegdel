@@ -10,21 +10,21 @@
   			<a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
   		</div>
 
-  		<h2 class="panel-title">{{ trans('Хаяг') }}</h2>
+  		<h2 class="panel-title">{{ trans('Бараа / Төрөл') }}</h2>
   	</header>
   	<div class="panel-body">
   		<div class="row">
         <div class="col-md-3">
-          <div id="addressTree">
+          <div id="productTree">
 
           </div>
         </div>
         <div class="col-md-9">
           <div class="row gridFilterWrapper">
-            <form id="addressSearch_Form">
+            <form id="productSearch_Form">
+              <input name="parent_id" type="hidden">
             <div class="col-sm-4">
               <div class="mb-md">
-                  <input name="parent_id" type="hidden">
                   <div class="form-group">
                     <label class="col-md-12 control-label">{{trans('resource.name')}} :</label>
                     <div class="col-md-12">
@@ -35,11 +35,52 @@
             </div>
             <div class="col-sm-4">
               <div class="mb-md">
-                  <input name="parent_id" type="hidden">
                   <div class="form-group">
                     <label class="col-md-12 control-label">{{trans('Код')}} :</label>
                     <div class="col-md-12">
                       <input type="text" class="form-control" name="code"/>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-md">
+                  <input name="parent_id" type="hidden">
+                  <div class="form-group">
+                    <label class="col-md-12 control-label">{{trans('Бар код')}} :</label>
+                    <div class="col-md-12">
+                      <input type="text" class="form-control" name="bar_code"/>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-md">
+                  <input name="parent_id" type="hidden">
+                  <div class="form-group">
+                    <label class="col-md-12 control-label">{{trans('Төрөл')}} :</label>
+                    <div class="col-md-12">
+                      <select value="" name="type" class="uselect2" style="width:100%">
+                        <option  value="">Сонго</option>
+                        <option value="2">Бараа</option>
+                        <option value="1">Төрөл</option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-md">
+                  <input name="parent_id" type="hidden">
+                  <div class="form-group">
+                    <label class="col-md-12 control-label">{{trans('Нийлүүлэгч')}} :</label>
+                    <div class="col-md-12">
+                      <select value="" name="suplier" class="uselect2" style="width:100%">
+                        <option  value="">Сонго</option>
+                        @foreach ($model as $item)
+                          <option  value="{{$item->purchaser_id}}">{{$item->name}} - {{$item->code}}</option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
               </div>
@@ -49,8 +90,8 @@
               <div class="form-group usticky" style="background: #fff;">
                 <div class="col-md-12" style="text-align: center;">
                   <div>
-                    <button type="button" class="btn btn-success" onclick="u$Grid.reload('address_grid')">{{trans('Хайх')}}</button>
-                    <button type="button" class="btn btn-warning" onclick="$('#addressSearch_Form')[0].reset()">{{trans('Арилгах')}}</button>
+                    <button type="button" class="btn btn-success" onclick="u$Grid.reload('product_grid')">{{trans('Хайх')}}</button>
+                    <button type="button" class="btn btn-warning" onclick="$('#productSearch_Form')[0].reset()">{{trans('Арилгах')}}</button>
                     <button type="button" class="btn" onclick="u$Grid.toggleFilter(this)">{{trans('resource.buttons.close')}}</button>
                   </div>
                 </div>
@@ -63,22 +104,30 @@
       			</div> --}}
           </div>
           <div class="grid-body">
-            <div style="display: none;" class="ucolumn-cont" data-table="address_grid">
-              <ucolumn name="index" source="index" utype="index" searchable="false" sortable="false"/>
+            <div style="display: none;" class="ucolumn-cont" data-table="product_grid">
+              <ucolumn width="10px" name="index" source="index" utype="index" searchable="false" sortable="false"/>
               <ucolumn name="id" source="id" visible="false"/>
               <ucolumn name="name" source="name" sort="true"/>
               <ucolumn name="code" source="code"/>
+              <ucolumn name="type" source="type" utype="formatter" func="sys.product.typeFormatter"/>
+              <ucolumn name="bar_code" source="bar_code"/>
+              <ucolumn name="suplier_name" source="suplier_name"/>
+              <ucolumn name="suplier_code" source="suplier_code"/>
               <ucolumn name="parent_name" source="parent_name"/>
-              <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="sys.address.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
-              <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="sys.address.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
+              <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="sys.product.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
+              <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="sys.product.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
             </div>
-            <table action="/khc/address/list" id="address_grid" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-condensed" width="100%">
+            <table action="/khc/product/list" id="product_grid" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-condensed" width="100%">
               <thead>
                 <tr>
                   <th></th>
                   <th>{{trans('resource.weblinks.id')}}</th>
                   <th>{{trans('resource.name')}}</th>
                   <th>{{trans('Код')}}</th>
+                  <th>{{trans('Төрөл')}}</th>
+                  <th>{{trans('Бар код')}}</th>
+                  <th>{{trans('Нийлүүлэгчийн нэр')}}</th>
+                  <th>{{trans('Нийлүүлэгчийн код')}}</th>
                   <th>{{trans('Хамаарал')}}</th>
                   <th></th>
                   <th></th>
@@ -93,13 +142,14 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
+    $(".uselect2").select2();
     var buttons = [];
-    buttons.push('<button onclick="sys.address.add()" class="btn btn-primary fRight">{{trans('resource.buttons.add')}} <i class="fa fa-plus"></i></button>');
+    buttons.push('<button onclick="sys.product.add()" class="btn btn-primary fRight">{{trans('resource.buttons.add')}} <i class="fa fa-plus"></i></button>');
     buttons.push('<button onclick="u$Grid.toggleFilter(this)" class="btn btn-info fRight">{{trans('Хайлт')}} <i class="fa fa-search"></i></button>');
-    baseGridFunc.init("address_grid", buttons, "addressSearch_Form");
+    baseGridFunc.init("product_grid", buttons, "productSearch_Form");
 
 
-    $('#addressTree').jstree({
+    $('#productTree').jstree({
   		'core' : {
   			'themes' : {
   				'responsive': false
@@ -107,8 +157,8 @@
         'data' : {
             'url' : function (node) {
               return node.id === '#' ?
-                '/khc/address/tree' :
-                '/khc/address/tree/node';
+                '/khc/product/tree' :
+                '/khc/product/tree/node';
             },
             'data' : function (node) {
               return { 'id' : node.id };
@@ -118,7 +168,7 @@
   		},
   		'types' : {
   			'default' : {
-  				'icon' : 'fa fa-location-arrow'
+  				'icon' : 'fa fa-cubes'
   			},
   			'country' : {
   				'icon' : 'fa fa-globe'
@@ -130,28 +180,28 @@
   				'icon' : 'fa fa-building'
   			}
   		},
-  		'contextmenu': {'items': sys.address.treeMenu},
+  		'contextmenu': {'items': sys.product.treeMenu},
   		'plugins': ['types','contextmenu']
   	});
 
-    $('#addressTree').on("select_node.jstree", function (e, data) {
+    $('#productTree').on("select_node.jstree", function (e, data) {
 
         var nodeId = "";
         if(data.node.id != 0){
           nodeId = data.node.id;
         }
 
-        $("#addressSearch_Form input[name='parent_id']").val(nodeId);
-        u$Grid.reload('address_grid');
+        $("#productSearch_Form input[name='parent_id']").val(nodeId);
+        u$Grid.reload('product_grid');
     });
 
   });
 
-  sys.address = {
+  sys.product = {
       add: function(){
         var postData = {};
-        postData["parent_id"] = $("#addressSearch_Form input[name='parent_id']").val();
-        uPage.call('/khc/address/update',postData);
+        postData["parent_id"] = $("#productSearch_Form input[name='parent_id']").val();
+        uPage.call('/khc/product/update',postData);
       },
 
       edit: function(gridId ,elmnt){
@@ -161,32 +211,44 @@
           var postData = {};
           postData['id'] = rowData.id;
 
-          uPage.call('/khc/address/update',postData);
+          uPage.call('/khc/product/update',postData);
       },
 
       save: function(){
 
+        var postData = $("#productRegister_Form").serializeObject();
+        postData["unit"] = $("#productRegister_Form select[name='unit']").val();
+
           $.ajax({
-              url: '/khc/address/save',
+              url: '/khc/product/save',
               type: "POST",
               dataType: "json",
-              data : $("#addressRegister_Form").serializeObject(),
+              data : postData,
               success: function(data){
                   if(data.type == 'success'){
                     umsg.success(messages.saved);
-                    uPage.close('window_addressRegister');
-                    baseGridFunc.reload("address_grid");
-                    var parent_id = "#"
+                    uPage.close('window_productRegister');
+                    baseGridFunc.reload("product_grid");
+                    if(data.data.type == 1){
 
-                    if(data.data.parent_id != 0){
-                      parent_id = data.data.parent_id;
+                      $('#productTree').jstree().delete_node([{
+                          "id": data.data.id
+                        }
+                      ]);
+
+                      var parent_id = "#"
+
+                      if(data.data.parent_id != 0){
+                        parent_id = data.data.parent_id;
+                      }
+
+                      $('#productTree').jstree().create_node(parent_id, {
+                        "id": data.data.id,
+                        "text": data.data.name,
+                        "type": data.data.type,
+                        "children": true,
+                      },"last", function(){});
                     }
-
-                    $('#addressTree').jstree().create_node(parent_id, {
-                      "id": data.data.id,
-                      "text": data.data.name,
-                      "type": data.data.type,
-                    },"last", function(){});
                   }else{
                     uvalidate.setErrors(data);
                   }
@@ -201,15 +263,15 @@
           var postData = {};
           postData['id'] = rowData.id;
           $.ajax({
-              url: '/khc/address/remove',
+              url: '/khc/product/remove',
               type: "POST",
               dataType: "json",
               data : postData,
               success: function(data){
                   if(data.type == 'success'){
                     umsg.success(messages.removed);
-                    baseGridFunc.reload("address_grid");
-                    $('#addressTree').jstree().delete_node([{
+                    baseGridFunc.reload("product_grid");
+                    $('#productTree').jstree().delete_node([{
                         "id": data.data.id
                       }
                     ]);
@@ -217,6 +279,18 @@
               }
           });
         });
+      },
+
+      typeFormatter: function(data, type, row){
+        var retVal = "";
+
+        if(data == 1){
+          retVal = '{{trans("system.type")}}';
+        }else{
+          retVal = '{{trans("system.product")}}';
+        }
+
+        return retVal;
       },
 
       treeMenu : function(node){
@@ -227,7 +301,7 @@
                 'action' : function () {
                   var postData = {};
                   postData["parent_id"] = node.id;
-                  uPage.call('/khc/address/update',postData);
+                  uPage.call('/khc/product/update',postData);
                  }
             },
             'edit' : {
@@ -236,7 +310,7 @@
               'action' : function () {
                 var postData = {};
                 postData["id"] = node.id;
-                uPage.call('/khc/address/update',postData);
+                uPage.call('/khc/product/update',postData);
                }
             },
             'delete' : {
@@ -247,15 +321,15 @@
                   var postData = {};
                   postData['id'] = node.id;
                   $.ajax({
-                      url: '/khc/address/remove',
+                      url: '/khc/product/remove',
                       type: "POST",
                       dataType: "json",
                       data : postData,
                       success: function(data){
                           if(data.type == 'success'){
                             umsg.success(messages.removed);
-                            baseGridFunc.reload("address_grid");
-                            $('#addressTree').jstree().delete_node([{
+                            baseGridFunc.reload("product_grid");
+                            $('#productTree').jstree().delete_node([{
                                 "id": data.data.id
                               }
                             ]);
@@ -269,6 +343,18 @@
         }
 
         return items;
+      },
+
+      hsUnit: function(){
+
+        if($("#productRegister_Form select[name='type']").val() == 2){
+            $("#productRegister_Form #unitCont").show();
+            $("#productRegister_Form #supCont").show();
+        }else{
+          $("#productRegister_Form #unitCont").hide();
+          $("#productRegister_Form #supCont").hide();
+        }
+
       }
   }
 

@@ -24,14 +24,14 @@ Route::get('/address/get/child', 'Khc\AddressController@getChild');
 
 /* PRODUCT */
 
-Route::get('/product', 'Khc\AddressController@index');
-Route::post('/product/update', 'Khc\AddressController@update');
-Route::post('/product/save', 'Khc\AddressController@save');
-Route::post('/product/remove', 'Khc\AddressController@remove');
-Route::get('/product/tree', 'Khc\AddressController@tree');
-Route::get('/product/tree/node', 'Khc\AddressController@treeNode');
-Route::get('/product/list', 'Khc\AddressController@datalist');
-Route::get('/product/get/child', 'Khc\AddressController@getChild');
+Route::get('/product', 'Khc\ProductController@index');
+Route::post('/product/update', 'Khc\ProductController@update');
+Route::post('/product/save', 'Khc\ProductController@save');
+Route::post('/product/remove', 'Khc\ProductController@remove');
+Route::get('/product/tree', 'Khc\ProductController@tree');
+Route::get('/product/tree/node', 'Khc\ProductController@treeNode');
+Route::get('/product/list', 'Khc\ProductController@datalist');
+Route::get('/product/get/child', 'Khc\ProductController@getChild');
 
 
 /* PRODUCT */
