@@ -57,8 +57,26 @@ Route::post('/purchaser/save', 'Khc\PurchaserController@save');
 Route::post('/purchaser/delete', 'Khc\PurchaserController@delete');
 Route::get('/purchaser/data', 'Khc\PurchaserController@data');
 
+Route::get('/supplier', 'Khc\SupplierController@index');
+Route::post('/supplier/edit', 'Khc\SupplierController@edit');
+Route::post('/supplier/save', 'Khc\SupplierController@save');
+Route::post('/supplier/delete', 'Khc\SupplierController@delete');
+Route::get('/supplier/data', 'Khc\SupplierController@data');
+
 Route::get('/employer', 'Khc\EmployerController@index');
 Route::post('/employer/edit', 'Khc\EmployerController@edit');
 Route::post('/employer/save', 'Khc\EmployerController@save');
 Route::post('/employer/delete', 'Khc\EmployerController@delete');
 Route::get('/employer/data', 'Khc\EmployerController@data');
+
+Route::get('/cost', 'Khc\CostController@index');
+Route::post('/cost/edit', 'Khc\CostController@edit');
+Route::post('/cost/save', 'Khc\CostController@save');
+Route::post('/cost/delete', 'Khc\CostController@delete');
+Route::get('/cost/data', 'Khc\CostController@data');
+
+Route::get('/costtemplate', 'Khc\CostTemplateController@index');
+Route::post('/costtemplate/edit', 'Khc\CostTemplateController@edit');
+Route::post('/costtemplate/save', 'Khc\CostTemplateController@save');
+Route::post('/costtemplate/delete', 'Khc\CostTemplateController@delete');
+Route::get('/costtemplate/data', 'Khc\CostTemplateController@data');

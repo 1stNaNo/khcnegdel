@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\Role;
 use App\Models\Sys\SysClient;
+use App\Models\Sys\Views\Vw_user;
+use App\Models\Sys\KhcWarehouse;
 use Datatables;
 use Validator;
 
@@ -18,11 +20,12 @@ class UsersController extends Controller
   }
 
   public function index(){
+
     return view('admin.user_list');
   }
 
   public function userslist(){
-    return Datatables::of(User::all())->make(true);
+    return Datatables::of(Vw_user::all())->make(true);
   }
 
   public function indexnewuser(Request $request){
@@ -33,10 +36,10 @@ class UsersController extends Controller
 
     $roles = Role::all();
     $clients = SysClient::all();
+    $warehouses = KhcWarehouse::all();
 
 
-
-    return view('admin.user')->with(compact('user'))->with(compact('roles','clients'));
+    return view('admin.user')->with(compact('user'))->with(compact('roles','clients','warehouses'));
   }
 
   public function passwordReset(Request $request){
@@ -65,6 +68,9 @@ class UsersController extends Controller
 
     $validate = [];
     $validate['name'] = 'required|max:255';
+    $validate['firstname'] = 'required|max:255';
+    $validate['lastname'] = 'required|max:255';
+    $validate['phone'] = 'required|max:255';
     $validate['password'] = 'required|min:6|confirmed';
 
     if(!empty($request->id)){
@@ -82,8 +88,11 @@ class UsersController extends Controller
       $user = User::find($request->id);
     }
     $user->name = $request->name;
+    $user->firstname = $request->firstname;
+    $user->lastname = $request->lastname;
+    $user->phone = $request->phone;
     $user->email = $request->email;
-    $user->org_id = $request->client;
+    $user->wh_id = $request->wh_id;
     $user->password = bcrypt($request->password);
 
     $user->save();

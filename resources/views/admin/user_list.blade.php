@@ -22,7 +22,11 @@
       <div style="display: none;" class="ucolumn-cont" data-table="users_grid">
         <ucolumn name="user_id" source="user_id" visible="false"/>
         <ucolumn name="name" source="name"/>
+        <ucolumn name="firstname" source="firstname"/>
+        <ucolumn name="lastname" source="lastname"/>
         <ucolumn name="email" source="email"/>
+        <ucolumn name="phone" source="phone"/>
+        <ucolumn name="warehouse_name" source="warehouse_name"/>
         <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="uusers.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
         <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="uusers.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
       </div>
@@ -30,8 +34,12 @@
         <thead>
           <tr>
             <th>{{trans('resource.weblinks.id')}}</th>
-            <th>{{trans('resource.name')}}</th>
+            <th>{{trans('Хэрэглэгчийн нэр')}}</th>
+            <th>{{trans('Нэр')}}</th>
+            <th>{{trans('Овог')}}</th>
             <th>{{trans('resource.email')}}</th>
+            <th>{{trans('Утас')}}</th>
+            <th>{{trans('Агуулах')}}</th>
             <th></th>
             <th></th>
           </tr>

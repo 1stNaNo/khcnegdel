@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class KhcPurchaser
  */
-class KhcPurchaser extends Model
+class KhcSupplier extends Model
 {
-    protected $table = 'khc_purchaser';
+    protected $table = 'khc_supplier';
 
-    protected $primaryKey = 'purchaser_id';
+    protected $primaryKey = 'supplier_id';
 
 	public $timestamps = false;
 
