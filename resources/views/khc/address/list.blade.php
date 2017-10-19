@@ -92,60 +92,6 @@
   </section>
 </div>
 <script type="text/javascript">
-  $(document).ready(function() {
-    var buttons = [];
-    buttons.push('<button onclick="sys.address.add()" class="btn btn-primary fRight">{{trans('resource.buttons.add')}} <i class="fa fa-plus"></i></button>');
-    buttons.push('<button onclick="u$Grid.toggleFilter(this)" class="btn btn-info fRight">{{trans('Хайлт')}} <i class="fa fa-search"></i></button>');
-    baseGridFunc.init("address_grid", buttons, "addressSearch_Form");
-
-
-    $('#addressTree').jstree({
-  		'core' : {
-  			'themes' : {
-  				'responsive': false
-  			},
-        'data' : {
-            'url' : function (node) {
-              return node.id === '#' ?
-                '/khc/address/tree' :
-                '/khc/address/tree/node';
-            },
-            'data' : function (node) {
-              return { 'id' : node.id };
-            }
-        },
-        check_callback : true
-  		},
-  		'types' : {
-  			'default' : {
-  				'icon' : 'fa fa-location-arrow'
-  			},
-  			'country' : {
-  				'icon' : 'fa fa-globe'
-  			},
-        'city' : {
-  				'icon' : 'fa fa-flag'
-  			},
-        'district' : {
-  				'icon' : 'fa fa-building'
-  			}
-  		},
-  		'contextmenu': {'items': sys.address.treeMenu},
-  		'plugins': ['types','contextmenu']
-  	});
-
-    $('#addressTree').on("select_node.jstree", function (e, data) {
-
-        var nodeId = "";
-        if(data.node.id != 0){
-          nodeId = data.node.id;
-        }
-
-        $("#addressSearch_Form input[name='parent_id']").val(nodeId);
-        u$Grid.reload('address_grid');
-    });
-
-  });
 
   sys.address = {
       add: function(){
@@ -278,6 +224,61 @@
         return items;
       }
   }
+
+  $(document).ready(function() {
+    var buttons = [];
+    buttons.push('<button onclick="sys.address.add()" class="btn btn-primary fRight">{{trans('resource.buttons.add')}} <i class="fa fa-plus"></i></button>');
+    buttons.push('<button onclick="u$Grid.toggleFilter(this)" class="btn btn-info fRight">{{trans('Хайлт')}} <i class="fa fa-search"></i></button>');
+    baseGridFunc.init("address_grid", buttons, "addressSearch_Form");
+
+
+    $('#addressTree').jstree({
+  		'core' : {
+  			'themes' : {
+  				'responsive': false
+  			},
+        'data' : {
+            'url' : function (node) {
+              return node.id === '#' ?
+                '/khc/address/tree' :
+                '/khc/address/tree/node';
+            },
+            'data' : function (node) {
+              return { 'id' : node.id };
+            }
+        },
+        check_callback : true
+  		},
+  		'types' : {
+  			'default' : {
+  				'icon' : 'fa fa-location-arrow'
+  			},
+  			'country' : {
+  				'icon' : 'fa fa-globe'
+  			},
+        'city' : {
+  				'icon' : 'fa fa-flag'
+  			},
+        'district' : {
+  				'icon' : 'fa fa-building'
+  			}
+  		},
+  		'contextmenu': {'items': sys.address.treeMenu},
+  		'plugins': ['types','contextmenu']
+  	});
+
+    $('#addressTree').on("select_node.jstree", function (e, data) {
+
+        var nodeId = "";
+        if(data.node.id != 0){
+          nodeId = data.node.id;
+        }
+
+        $("#addressSearch_Form input[name='parent_id']").val(nodeId);
+        u$Grid.reload('address_grid');
+    });
+
+  });
 
 </script>
 @endsection

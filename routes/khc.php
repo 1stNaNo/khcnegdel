@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/address', 'Khc\AddressController@index');
+Route::any('/address', 'Khc\AddressController@index');
 Route::post('/address/update', 'Khc\AddressController@update');
 Route::post('/address/save', 'Khc\AddressController@save');
 Route::post('/address/remove', 'Khc\AddressController@remove');

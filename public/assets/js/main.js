@@ -361,6 +361,33 @@ var baseGridFunc = {
 			return retValue;
 		},
 
+    getSelectedRowData: function(gridId){
+
+			var tableElmt = $("#" + gridId);
+
+			var columnCont = $('.ucolumn-cont[data-table="'+ gridId +'"]');
+
+			var counter = 0;
+			var indexLcl = {};
+
+      var retData = {};
+
+			columnCont.find("ucolumn").each(function(){
+					indexLcl[counter] = $(this).attr("name");
+					counter++;
+			});
+			if(tableElmt.find("tr.row_selected").length > 0){
+
+					var i = 0;
+					tableElmt.find("tr.row_selected").find("td").each(function(){
+              retData[indexLcl[i]] = $(this).text();
+              i++;
+					});
+
+			}
+			return retData;
+		},
+
 		reload: function(gridId){
 			$('#'+ gridId).DataTable().ajax.reload();
 		},
