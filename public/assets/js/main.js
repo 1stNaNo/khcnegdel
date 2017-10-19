@@ -26,6 +26,8 @@ var uPage = {
         format : 'YYYY/MM/DD'
       });
 
+      $(".content").append($newPage);
+
       $newPage.get(0).callback = cbFunc;
 
 
