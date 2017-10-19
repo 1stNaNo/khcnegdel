@@ -9,38 +9,26 @@ var gridTables = {};
 var uPage = {
 	call: function(url, param, cbFunc){
 		$.post(url, param, function(result){
-    var $prevPage = $(".active-window");
-    var $newPage = $(result);
-    if($newPage.attr('id') != $prevPage.attr('id')){
-      $prevPage.removeClass('active-window').addClass('inactive-window');
-      $newPage.addClass('active-window').find('input.prev_window').val($prevPage.attr('id'));
+      var $prevPage = $(".active-window");
+      var $newPage = $(result);
 
-      $newPage.find('select').each(function(){
-        if(!$(this).hasClass('select2-selection__rendered'))
-          $(this).select2({
-            'width' : '100%'
-          });
-      });
+      if($newPage.attr('id') != $prevPage.attr('id')){
+        $prevPage.removeClass('active-window').addClass('inactive-window');
+        $newPage.addClass('active-window').find('input.prev_window').val($prevPage.attr('id'));
 
-      // $($newPage).find("input.datepicker").datetimepicker({
-      //   format : 'YYYY/MM/DD'
-      // });
+        $newPage.get(0).callback = cbFunc;
 
-      $(".content").append($newPage);
+        $($newPage).find("input.datepicker").datepicker();
+          
+        $(".uMainContent").html($newPage);
 
-      $newPage.get(0).callback = cbFunc;
-
-
-      // $('#'+$newPage.attr('id')).find('.search-grid').keypress(function(e){
-      //   if(e.keyCode == 13){
-      //     e.preventDefault();
-      //     reloadDataTable($(this).closest('.page-window').attr('id'), $(this).attr('reload-table'));
-      //     return false;
-      //   }
-      // });
-    }
-
-
+        $('select').each(function(){
+          if(!$(this).hasClass('select2-selection__rendered'))
+            $(this).select2({
+              'width' : '100%'
+            });
+        });
+      }
 
 		}).fail(function(xhr, status, error){
 			//nMessage(error);
@@ -49,16 +37,15 @@ var uPage = {
 
 	close: function(windowId, params){
 
-    $currWindow = $("#"+windowId);
-    var func = $currWindow.get(0).callback;
-    $prevWindowId = $("#"+windowId).find("input.prev_window").val();
+	  $prevWindowId = $("#"+windowId).find("input.prev_window").val();
     $("#" + $prevWindowId).removeClass('inactive-window').addClass('active-window');
-    $currWindow.remove();
+    $("#"+windowId).remove();
 
     $("span.select2.select2-container").each(function(){
-      $(this).css('style', 'width: 100% !important');
+      $(this).css('style', 'width: auto !important');
     });
-
+    
+    var func = $("#"+windowId).get(0).callback;
     func && func(params);
 
 	},
@@ -369,33 +356,6 @@ var baseGridFunc = {
 
 			}
 			return retValue;
-		},
-
-    getSelectedRowData: function(gridId){
-
-			var tableElmt = $("#" + gridId);
-
-			var columnCont = $('.ucolumn-cont[data-table="'+ gridId +'"]');
-
-			var counter = 0;
-			var indexLcl = {};
-
-      var retData = {};
-
-			columnCont.find("ucolumn").each(function(){
-					indexLcl[counter] = $(this).attr("name");
-					counter++;
-			});
-			if(tableElmt.find("tr.row_selected").length > 0){
-
-					var i = 0;
-					tableElmt.find("tr.row_selected").find("td").each(function(){
-              retData[indexLcl[i]] = $(this).text();
-              i++;
-					});
-
-			}
-			return retData;
 		},
 
 		reload: function(gridId){
