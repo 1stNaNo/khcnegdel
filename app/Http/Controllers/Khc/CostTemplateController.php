@@ -32,7 +32,8 @@ class CostTemplateController extends Controller
      */
     public function index()
     {
-      return view('khc.costtemplate.costtemplate_list');
+      $warehouses = VwKhcWarehouse::all();
+      return view('khc.costtemplate.costtemplate_list')->with(compact('warehouses'));
     }
 
     public function edit(Request $request){
@@ -51,6 +52,7 @@ class CostTemplateController extends Controller
     public function save(Request $request){
       
       $validate = [];
+      $validate = ['wh_id'];
 
       $validator = \Validator::make($request->all(), $validate);
 

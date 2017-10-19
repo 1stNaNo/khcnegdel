@@ -18,25 +18,18 @@
           <div class="col-sm-4">
             <div class="mb-md">
               <div class="form-group">
-                <label class="col-md-12 control-label">{{trans('resource.name')}} :</label>
+                <label class="col-md-12 control-label">{{trans('Агуулах')}} :</label>
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="name"/>
+                  <select name="wh_id" class="uselect2" style="width : 100%">
+                    <option value="">Сонго</option>
+                    @foreach($warehouses as $c)
+                      <option value="{{$c->wh_id}}">{{$c->name}}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-sm-4">
-            <div class="mb-md">
-              <div class="form-group">
-                <label class="col-md-12 control-label">{{trans('Утас')}} :</label>
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="phone"/>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </form>
         <div class="mb-md">
           <div class="form-group usticky" style="background: #fff;">
@@ -49,11 +42,6 @@
             </div>
           </div>
         </div>
-        {{-- <div class="col-sm-6">
-          <div class="mb-md">
-            <button onclick="costtemplate.add()" class="btn btn-primary">{{trans('resource.buttons.add')}} <i class="fa fa-plus"></i></button>
-          </div>
-        </div> --}}
       </div>
       <div class="grid-body">
         <div style="display: none;" class="ucolumn-cont" data-table="costtemplate_grid">
@@ -62,7 +50,6 @@
           <ucolumn width="20%" name="warehouse_name" source="warehouse_name" sort="true"/>
           <ucolumn name="amount" source="amount" sort="true"/>
           
-          <ucolumn width="50px" name="edit_btn" source="edit_btn" utype="btn" func="costtemplate.edit" uclass="fa fa-pencil ucGreen" utext="{{trans('resource.buttons.edit')}}"></ucolumn>
           <ucolumn width="50px" name="remove_btn" source="remove_btn" utype="btn" func="costtemplate.remove" uclass="fa fa-trash-o ucRed" utext="{{trans('resource.buttons.remove')}}"></ucolumn>
         </div>
         <table action="/khc/costtemplate/data" id="costtemplate_grid" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-condensed" width="100%">
@@ -72,7 +59,6 @@
               <th></th>
               <th>Нэр</th>
               <th>{{trans('Дүн')}}</th>
-              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -84,7 +70,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     var buttons = [];
-    buttons.push('<button onclick="costtemplate.add()" class="btn btn-primary fRight">{{trans('resource.buttons.add')}} <i class="fa fa-plus"></i></button>');
+    buttons.push('<button onclick="costtemplate.add()" class="btn btn-primary fRight">{{trans('Нэмэх/Засах')}} <i class="fa fa-plus"></i></button>');
     buttons.push('<button onclick="u$Grid.toggleFilter(this)" class="btn btn-info fRight">{{trans('Хайлт')}} <i class="fa fa-search"></i></button>');
     baseGridFunc.init("costtemplate_grid", buttons, "costtemplateSearch_Form");
 
