@@ -12,6 +12,7 @@ var uPage = {
     var $prevPage = $(".active-window");
     var $newPage = $(result);
     if($newPage.attr('id') != $prevPage.attr('id')){
+      $(".uMainContent").append($newPage);
       $prevPage.removeClass('active-window').addClass('inactive-window');
       $newPage.addClass('active-window').find('input.prev_window').val($prevPage.attr('id'));
 
@@ -25,8 +26,6 @@ var uPage = {
       // $($newPage).find("input.datepicker").datetimepicker({
       //   format : 'YYYY/MM/DD'
       // });
-
-      $(".content").append($newPage);
 
       $newPage.get(0).callback = cbFunc;
 
@@ -51,6 +50,9 @@ var uPage = {
 
     $currWindow = $("#"+windowId);
     var func = $currWindow.get(0).callback;
+    console.log(func);
+    func && func(params);
+
     $prevWindowId = $("#"+windowId).find("input.prev_window").val();
     $("#" + $prevWindowId).removeClass('inactive-window').addClass('active-window');
     $currWindow.remove();
@@ -58,8 +60,6 @@ var uPage = {
     $("span.select2.select2-container").each(function(){
       $(this).css('style', 'width: 100% !important');
     });
-
-    func && func(params);
 
 	},
 };

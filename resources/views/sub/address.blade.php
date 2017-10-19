@@ -3,7 +3,7 @@
     <div class="form-group usticky" style="background: #fff;">
       <div class="col-md-12" style="text-align: center;">
         <div>
-          <button type="button" class="btn btn-success" onclick="alert(0)">{{trans('Сонгох')}}</button>
+          <button type="button" class="btn btn-success" onclick="uPage.close('window_addressList', baseGridFunc.getSelectedRowData('address_grid'))">{{trans('Сонгох')}}</button>
         </div>
       </div>
     </div>
