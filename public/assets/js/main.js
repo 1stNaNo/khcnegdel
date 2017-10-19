@@ -7,28 +7,36 @@ $.ajaxSetup({
 var gridTables = {};
 
 var uPage = {
-	call: function(url, param, isMenu){
+	call: function(url, param, cbFunc){
 		$.post(url, param, function(result){
-	    var $prevPage = $(".active-window");
-	    var $newPage = $(result);
+    var $prevPage = $(".active-window");
+    var $newPage = $(result);
+    if($newPage.attr('id') != $prevPage.attr('id')){
+      $prevPage.removeClass('active-window').addClass('inactive-window');
+      $newPage.addClass('active-window').find('input.prev_window').val($prevPage.attr('id'));
 
-	    if($newPage.attr('id') != $prevPage.attr('id')){
-	      $prevPage.removeClass('active-window').addClass('inactive-window');
-	      $newPage.addClass('active-window').find('input.prev_window').val($prevPage.attr('id'));
+      $newPage.find('select').each(function(){
+        if(!$(this).hasClass('select2-selection__rendered'))
+          $(this).select2({
+            'width' : '100%'
+          });
+      });
 
-	      $($newPage).find("input.datepicker").datepicker();
-	      if(isMenu)
-	        $(".uMainContent").html($newPage);
-	      else
-	        $(".uMainContent").append($newPage);
+      $($newPage).find("input.datepicker").datetimepicker({
+        format : 'YYYY/MM/DD'
+      });
 
-	      $('select').each(function(){
-	        if(!$(this).hasClass('select2-selection__rendered'))
-	          $(this).select2({
-	            'width' : '100%'
-	          });
-	      });
-	    }
+      $newPage.get(0).callback = cbFunc;
+
+
+      $('#'+$newPage.attr('id')).find('.search-grid').keypress(function(e){
+        if(e.keyCode == 13){
+          e.preventDefault();
+          reloadDataTable($(this).closest('.page-window').attr('id'), $(this).attr('reload-table'));
+          return false;
+        }
+      });
+    }
 
 
 
@@ -37,19 +45,19 @@ var uPage = {
 		});
 	},
 
-	close: function(windowId, callback){
+	close: function(windowId, params){
 
-    if(callback != undefined){
-        callback();
-    }
+    $currWindow = $("#"+windowId);
+    var func = $currWindow.get(0).callback;
+    $prevWindowId = $("#"+windowId).find("input.prev_window").val();
+    $("#" + $prevWindowId).removeClass('inactive-window').addClass('active-window');
+    $currWindow.remove();
 
-	  $prevWindowId = $("#"+windowId).find("input.prev_window").val();
-	  $("#" + $prevWindowId).removeClass('inactive-window').addClass('active-window');
-	  $("#"+windowId).remove();
+    $("span.select2.select2-container").each(function(){
+      $(this).css('style', 'width: 100% !important');
+    });
 
-	  $("span.select2.select2-container").each(function(){
-	    $(this).css('style', 'width: auto !important');
-	  });
+    func && func(params);
 
 	},
 };
