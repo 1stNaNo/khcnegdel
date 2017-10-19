@@ -22,22 +22,22 @@ var uPage = {
           });
       });
 
-      $($newPage).find("input.datepicker").datetimepicker({
-        format : 'YYYY/MM/DD'
-      });
+      // $($newPage).find("input.datepicker").datetimepicker({
+      //   format : 'YYYY/MM/DD'
+      // });
 
       $(".content").append($newPage);
 
       $newPage.get(0).callback = cbFunc;
 
 
-      $('#'+$newPage.attr('id')).find('.search-grid').keypress(function(e){
-        if(e.keyCode == 13){
-          e.preventDefault();
-          reloadDataTable($(this).closest('.page-window').attr('id'), $(this).attr('reload-table'));
-          return false;
-        }
-      });
+      // $('#'+$newPage.attr('id')).find('.search-grid').keypress(function(e){
+      //   if(e.keyCode == 13){
+      //     e.preventDefault();
+      //     reloadDataTable($(this).closest('.page-window').attr('id'), $(this).attr('reload-table'));
+      //     return false;
+      //   }
+      // });
     }
 
 
