@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends((Request::get('modal') == 0) ? 'layouts.admin' : 'layouts.only')
 
 @section('content')
 <div id="window_addressList" class="page-window active-window">

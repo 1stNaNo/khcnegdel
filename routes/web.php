@@ -256,3 +256,4 @@ Route::get('/complaints', function(){
 Route::post('/svcomplaints', 'Web\ComplaintsController@save')->middleware('lang');
 
 Route::post('/pollInfo', 'Web\ComplaintsController@pollInfo');
+Route::any('/sub', 'Sub\SubController@index');

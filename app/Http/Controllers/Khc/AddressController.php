@@ -18,7 +18,7 @@ class AddressController extends Controller
     $this->middleware('auth');
   }
 
-  public function index(){
+  public function index(Request $request){
 
     $parent = SysAddress::where("parent_id", 0)->get();
     $childs = array();

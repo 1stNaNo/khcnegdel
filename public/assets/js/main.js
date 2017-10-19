@@ -69,6 +69,22 @@ var uModal = {
       }
       $.magnificPopup.close();
     });
+  },
+
+  open: function(modalId, callback){
+
+    $.magnificPopup.open({
+      items: {
+        src: modalId
+      },
+      type: 'inline'
+    });
+    // $("#removeModal button.modal-confirm").off("click").click(function() {
+    //   if(callback != undefined){
+    //     callback();
+    //   }
+    //   $.magnificPopup.close();
+    // });
   }
 }
 
