@@ -18,11 +18,33 @@
                 <input type="hidden" name="id" value="{{ (!empty($user)) ? $user->user_id : '' }}"/>
 
                 <div class="form-group">
-                  <label class="col-md-3 control-label">{{trans('resource.name')}}</label>
+                  <label class="col-md-3 control-label">{{trans('Хэрэглэгчийн нэр')}}</label>
                   <div class="col-md-6">
                     <input type="text" class="form-control" name="name" class="" value="{{(!empty($user)) ? $user->name : ''}}"/>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label">{{trans('Овог')}}</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="lastname" class="" value="{{(!empty($user)) ? $user->lastname : ''}}"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label">{{trans('Нэр')}}</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="firstname" class="" value="{{(!empty($user)) ? $user->firstname : ''}}"/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-3 control-label">{{trans('Утас')}}</label>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="phone" class="" value="{{(!empty($user)) ? $user->phone : ''}}"/>
+                  </div>
+                </div>
+
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('resource.email')}}</label>
                   <div class="col-md-6">
@@ -33,6 +55,7 @@
                     @endif
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label class="col-md-3 control-label">{{trans('resource.password')}}</label>
                   <div class="col-md-6">
@@ -46,20 +69,15 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-md-3 control-label">{{trans('resource.category.parent')}}</label>
-                  <span class="help"></span>
+                  <label class="col-md-3 control-label">{{trans('Агуулах')}}</label>
                   <div class="col-md-6">
-                    <select name="client" class="uselect2" style="width:100%">
-                      @foreach($clients as $item)
-                          @if(count($user) > 0)
-                            @if($user->org_id == $item->id)
-                              <option selected="selected" value="{{$item->id}}">{{$item->name}}</option>
-                            @else
-                              <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endif
-                          @else
-                              <option value="{{$item->id}}">{{$item->name}}</option>
-                          @endif
+                    <select name="wh_id">
+                      @foreach($warehouses as $c)
+                        @if($user->wh_id == $c->wh_id)
+                          <option selected="selected" value="{{$c->wh_id}}">{{$c->name}}</option>
+                        @else
+                          <option value="{{$c->wh_id}}">{{$c->name}}</option>
+                        @endif
                       @endforeach
                     </select>
                   </div>

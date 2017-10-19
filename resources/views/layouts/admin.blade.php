@@ -200,7 +200,14 @@
               <li class="">
                 <a href="/khc/purchaser">
                   <i class="fa fa-money" aria-hidden="true"></i>
-                  <span>Байгууллага</span>
+                  <span>Худалдан авагч</span>
+                </a>
+              </li>
+
+              <li class="">
+                <a href="/khc/supplier">
+                  <i class="fa fa-home" aria-hidden="true"></i>
+                  <span>Нийлүүлэгч</span>
                 </a>
               </li>
 
@@ -244,6 +251,26 @@
                   <li>
                     <a href="/admin/role">
                        {{trans('resource.role.title')}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+              <li class="nav-parent">
+                <a>
+                  <i class="fa fa-money" aria-hidden="true"></i>
+                  <span>{{trans('Зардал')}}</span>
+                </a>
+                <ul class="nav nav-children">
+                  <li>
+                    <a href="/khc/cost">
+                       {{trans('Зардал')}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/khc/costtemplate">
+                       {{trans('Загвар')}}
                     </a>
                   </li>
                 </ul>
